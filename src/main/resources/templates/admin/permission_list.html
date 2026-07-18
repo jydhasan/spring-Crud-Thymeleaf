@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Permissions</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 60%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
+        input[type=text] { padding: 8px; }
+        button { padding: 8px 14px; }
+    </style>
+</head>
+<body>
+<h2>Manage Permissions</h2>
+<a th:href="@{/admin}">Back to Dashboard</a>
+<br><br>
+
+<form th:action="@{/admin/permissions}" method="post" style="margin-bottom:20px;">
+    <input type="text" name="name" placeholder="e.g. STUDENT_EXPORT" required />
+    <button type="submit">+ Add Permission</button>
+</form>
+
+<table>
+    <thead><tr><th>ID</th><th>Name</th><th>Action</th></tr></thead>
+    <tbody>
+    <tr th:each="p : ${permissions}">
+        <td th:text="${p.id}"></td>
+        <td th:text="${p.name}"></td>
+        <td>
+            <form th:action="@{/admin/permissions/{id}/delete(id=${p.id})}" method="post">
+                <button type="submit" onclick="return confirm('Delete this permission?')" style="color:red;border:none;background:none;cursor:pointer;">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

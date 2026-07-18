@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Roles</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 80%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
+        a { margin-right: 10px; text-decoration: none; color: #007bff; }
+        .btn-add { display: inline-block; margin-bottom: 15px; padding: 8px 16px; background: #28a745; color: white; border-radius: 4px; }
+    </style>
+</head>
+<body>
+<h2>Manage Roles</h2>
+<a th:href="@{/admin}">Back to Dashboard</a>
+<br><br>
+<a class="btn-add" th:href="@{/admin/roles/new}">+ New Role</a>
+<table>
+    <thead>
+    <tr><th>ID</th><th>Name</th><th>Permissions</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="role : ${roles}">
+        <td th:text="${role.id}"></td>
+        <td th:text="${role.name}"></td>
+        <td>
+            <span th:each="p : ${role.permissions}" th:text="${p.name} + ' '"></span>
+        </td>
+        <td>
+            <a th:href="@{/admin/roles/{id}/edit(id=${role.id})}">Edit</a>
+            <form th:action="@{/admin/roles/{id}/delete(id=${role.id})}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Delete this role?')" style="color:red;border:none;background:none;cursor:pointer;">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

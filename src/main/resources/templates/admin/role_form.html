@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Role Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        label { display: block; margin: 6px 0; }
+        input[type=text] { padding: 8px; width: 250px; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+<h2 th:text="${role.id} != null ? 'Edit Role' : 'New Role'"></h2>
+
+<form th:action="${role.id} != null ? @{/admin/roles/{id}(id=${role.id})} : @{/admin/roles}" method="post">
+    <label>Role Name:</label>
+    <input type="text" name="name" th:value="${role.name}" required />
+
+    <h4>Permissions:</h4>
+    <div th:each="perm : ${allPermissions}">
+        <label>
+            <input type="checkbox" name="permissionIds" th:value="${perm.id}"
+                   th:checked="${role.permissions.contains(perm)}" />
+            <span th:text="${perm.name}"></span>
+        </label>
+    </div>
+    <br>
+    <button type="submit">Save</button>
+    <a th:href="@{/admin/roles}">Cancel</a>
+</form>
+</body>
+</html>

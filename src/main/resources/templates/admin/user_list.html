@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 80%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
+        a { margin-right: 10px; text-decoration: none; color: #007bff; }
+        .badge { background: #007bff; color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-right: 4px; }
+    </style>
+</head>
+<body>
+<h2>Manage Users</h2>
+<a th:href="@{/admin}">Back to Dashboard</a>
+<br><br>
+<table>
+    <thead>
+    <tr><th>ID</th><th>Username</th><th>Roles</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="u : ${users}">
+        <td th:text="${u.id}"></td>
+        <td th:text="${u.username}"></td>
+        <td>
+            <span class="badge" th:each="r : ${u.roles}" th:text="${r.name}"></span>
+            <span th:if="${u.roles.isEmpty()}" style="color:red;">No role assigned</span>
+        </td>
+        <td>
+            <a th:href="@{/admin/users/{id}/roles(id=${u.id})}">Assign/Remove Role</a>
+            <form th:action="@{/admin/users/{id}/delete(id=${u.id})}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Delete this user?')" style="color:red;border:none;background:none;cursor:pointer;">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

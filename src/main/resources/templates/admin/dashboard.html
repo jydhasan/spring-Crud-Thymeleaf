@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .cards { display: flex; gap: 20px; margin-bottom: 30px; }
+        .card { background: #f8f9fa; padding: 20px; border-radius: 8px; width: 150px; text-align: center; }
+        .card h3 { margin: 0; font-size: 28px; }
+        nav a { margin-right: 15px; text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+<h2>Admin Dashboard</h2>
+<nav>
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/admin/users}">Manage Users</a>
+    <a th:href="@{/admin/roles}">Manage Roles</a>
+    <a th:href="@{/admin/permissions}">Manage Permissions</a>
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <button type="submit">Logout</button>
+    </form>
+</nav>
+<br>
+<div class="cards">
+    <div class="card"><h3 th:text="${userCount}"></h3><p>Users</p></div>
+    <div class="card"><h3 th:text="${roleCount}"></h3><p>Roles</p></div>
+    <div class="card"><h3 th:text="${permissionCount}"></h3><p>Permissions</p></div>
+</div>
+</body>
+</html>

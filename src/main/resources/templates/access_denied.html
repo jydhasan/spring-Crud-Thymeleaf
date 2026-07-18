@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; }
+        h1 { color: #dc3545; }
+    </style>
+</head>
+<body>
+<h1>403 - Access Denied</h1>
+<p>Apnar account e kono role/permission assign kora hoyni, othoba ei kaj korar permission apnar nei.</p>
+<p>Admin er sathe jogajog korun role assign korar jonno.</p>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+</body>
+</html>

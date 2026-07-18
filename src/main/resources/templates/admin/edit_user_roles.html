@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Roles</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        label { display: block; margin: 8px 0; }
+    </style>
+</head>
+<body>
+<h2>Assign Roles - <span th:text="${user.username}"></span></h2>
+
+<form th:action="@{/admin/users/{id}/roles(id=${user.id})}" method="post">
+    <div th:each="role : ${allRoles}">
+        <label>
+            <input type="checkbox" name="roleIds" th:value="${role.id}"
+                   th:checked="${user.roles.contains(role)}" />
+            <span th:text="${role.name}"></span>
+        </label>
+    </div>
+    <br>
+    <button type="submit">Save</button>
+    <a th:href="@{/admin/users}">Cancel</a>
+</form>
+</body>
+</html>
